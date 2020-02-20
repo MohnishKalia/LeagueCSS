@@ -3,7 +3,7 @@ import './App.css';
 import AppContext, { TeamPlayers, Player, GameState } from './context/AppContext';
 import Header from './components/Header';
 import Main from './components/Main';
-import Champions from './Champions'
+import Champions, { Champion } from './Champions'
 
 const App = () => {
     const shuffle = (array: any[]) => {
@@ -50,9 +50,9 @@ const App = () => {
                 blue: generateRandomTeam(),
             },
             state: 0,
-            banChampion: (champId: string, player: Player) => console.log('banned', { champId, player }),
-            selectChampion: (champId: string, player: Player) => console.log('select', { champId, player }),
-            lockChampion: (champId: string, player: Player) => console.log('locked', { champId, player }),
+            banChampion: (champ: Champion, player: Player) => { console.log('banned', { champ: champ, player }); player.ban = champ },
+            selectChampion: (champ: Champion, player: Player) => console.log('select', { champ, player }),
+            lockChampion: (champ: Champion, player: Player) => console.log('locked', { champ, player }),
             setGameState: (state: GameState) => console.log('change state', { state })
         }}>
             <Header />

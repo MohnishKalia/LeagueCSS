@@ -24,9 +24,9 @@ export type State = {
     champions: Data,
     teams: Teams,
     state: GameState
-    banChampion: (champId: string, player: Player) => void,
-    selectChampion: (champId: string, player: Player) => void,
-    lockChampion: (champId: string, player: Player) => void,
+    banChampion: (champ: Champion, player: Player) => void,
+    selectChampion: (champ: Champion, player: Player) => void,
+    lockChampion: (champ: Champion, player: Player) => void,
     setGameState: (state: GameState) => void,
 }
 
