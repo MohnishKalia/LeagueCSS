@@ -1,37 +1,36 @@
 import React from "react";
-import { Champion, Data } from '../Data'
+import { Champion, Data } from '../Champions'
 
-export type Pool = [Champion, Champion, Champion, Champion, Champion,];
-
-export type Bans = {
-    blueBans: Pool,
-    redBans: Pool,
+export interface Teams {
+    red: TeamPlayers
+    blue: TeamPlayers
 }
 
-export type Locks = {
-    blueLocks: Pool,
-    redLocks: Pool,
+export interface Player {
+    role: string,
+    name: string,
+    ban: Champion | undefined,
+    select: Champion | undefined,
+    lock: Champion | undefined,
 }
 
-export enum Team {
-    RED, BLUE
+export enum GameState {
+    Declare, Ban, Pick
 }
+
+export type TeamPlayers = [Player, Player, Player, Player, Player,];
 
 export type State = {
     champions: Data,
-    bannedChamps: Bans,
-    lockedChamps: Locks,
-    addChampionToBans: (champId: string) => void,
-    lockInChampion: (champId: string, playerIndex: 0 | 1 | 2 | 3 | 4, team: Team) => void,
+    teams: Teams,
+    state: GameState
+    banChampion: (champId: string, player: Player) => void,
+    selectChampion: (champId: string, player: Player) => void,
+    lockChampion: (champId: string, player: Player) => void,
+    setGameState: (state: GameState) => void,
 }
 
-const CartContext = React.createContext<State>({
-    champions: {},
-    bannedChamps: {} as Bans,
-    lockedChamps: {} as Locks,
-    addChampionToBans: (champId: string) => { },
-    lockInChampion: (champId: string, playerIndex: 0 | 1 | 2 | 3 | 4, team: Team) => { },
-});
+const AppContext = React.createContext<State>({} as State);
 
 
-export default CartContext;
+export default AppContext;
